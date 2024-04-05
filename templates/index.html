@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <style>
+        body {
+            background-color: #00FF00;
+            color: #FF00FF;
+            font-size: 24px;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        }
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>ПИНГПОНГ!</h1>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src={{ gif_url }} alt="Ping Pong Gif" style="max-width: 100%; height: auto;">
+    </div>
+
+    <a href="{{ url_for('match') }}">Добавить результат матча</a>
+    <ul>
+        {% for player in players %}
+            <li>{{ player.name }} - {{ player.rating }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('add_player') }}">Добавить нового игрока</a>
+
+</body>
+</html>

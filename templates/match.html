@@ -1,0 +1,15 @@
+<form method="post">
+    <label for="winner">Победитель:</label>
+    <select name="winner" id="winner">
+        {% for player in players %}
+        <option value="{{ player.id }}">{{ player.name }}</option>
+        {% endfor %}
+    </select>
+    <label for="loser">Проигравший:</label>
+    <select name="loser" id="loser">
+        {% for player in players %}
+        <option value="{{ player.id }}">{{ player.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Добавить">
+</form>
