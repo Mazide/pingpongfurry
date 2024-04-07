@@ -9,6 +9,7 @@
     </audio>
     <meta charset="UTF-8">
     <title>乒乓球比赛</title>
+    
     <style>
         body {
             background-color: #d40000; /* Красный фон */
@@ -43,9 +44,9 @@
         crossorigin="anonymous"></script>
     </div>
     
-
     <div class="overlay" id="overlay"></div>
     <h1>粉碎或放弃!</h1>
+    <h1>党与你一起燃烧 党分配一碗米饭和一只猫妻子</h1>
     <div>
         <img src="{{ gif_url }}" alt="Ping Pong Gif">
     </div>
@@ -66,7 +67,16 @@ document.addEventListener("click", function() {
     myAudio.play().catch(error => console.log("Error playing audio: ", error));
 });
 
+window.addEventListener("scroll", function() {
+    var myAudio = document.getElementById('myAudio');
+    myAudio.muted = false; // Попытка включить звук
+    myAudio.play().catch(error => console.log("Error playing audio: ", error));
+});
+
+
+
     </script>
+        <img src="static/images/china_kgb.webp" style="position: fixed; right: 0; bottom: 0; width: 100px; height: 100px;">
 </body>
 </html>
 

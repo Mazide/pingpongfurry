@@ -88,21 +88,30 @@
 
 <script>
     document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        document.getElementById('overlay').style.display = 'block';
+        event.preventDefault(); // Предотвратить стандартную отправку формы
 
-        var myAudio = document.getElementById('koAudio');
-        myAudio.muted = false; // Попытка включить звук
-        myAudio.play().catch(error => console.log("Error playing audio: ", error));
+        var formData = new FormData(this);
 
+        fetch('/match', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                // Отобразить KO и проиграть звук, как раньше
+                document.getElementById('overlay').style.display = 'block';
+                var koAudio = document.getElementById('koAudio');
+                koAudio.play().catch(error => console.log("Error playing audio: ", error));
 
-        setTimeout(function() {
-            document.getElementById('overlay').style.display = 'none';
-
-            setTimeout(function() {
-                window.location.href = '/';
-            }, 1500);
-        }, 1500);
+                setTimeout(function() {
+                    document.getElementById('overlay').style.display = 'none';
+                    window.location.href = '/';
+                }, 3000); // 3000 мс = 3 секунды для демонстрации KO, корректировать по необходимости
+            } else {
+                console.error('Server responded with status:', response.status);
+            }
+        }).catch(error => {
+            console.error('Error submitting form:', error);
+        });
     });
 </script>
 
