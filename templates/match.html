@@ -1,108 +1,11 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Добавить результат матча</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Светлый фон для страницы */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        label, select, input[type="submit"] {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        select, input[type="submit"] {
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            border-color: #007bff;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('static/images/KO_Knockout.webp') no-repeat center center;
-            background-size: cover;
-            z-index: 1000;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-
-<div class="overlay" id="overlay"></div>
-
-<form method="post">
-    <label for="winner">Победитель:</label>
-    <select name="winner" id="winner">
-        {% for player in players %}
-        <option value="{{ player.id }}">{{ player.name }}</option>
-        {% endfor %}
-</select>
-
-    <label for="loser">Проигравший:</label>
-    <select name="loser" id="loser">
-        {% for player in players %}
-        <option value="{{ player.id }}">{{ player.name }}</option>
-        {% endfor %}
-</select>
-
-    <input type="submit" value="Добавить">
-</form>
-
-<script>
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        document.getElementById('overlay').style.display = 'block';
-
-        setTimeout(function() {
-            document.getElementById('overlay').style.display = 'none';
-
-            setTimeout(function() {
-                window.location.href = '/';
-            }, 1500);
-        }, 1500);
-    });
-</script>
-
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <audio id="koAudio">
+        <source src="static/mlg-resource-street-fighter-ko-greenscreen.mp3" type="audio/mp3">
+    </audio>
+
     <title>Добавить результат матча</title>
     <style>
         body {
@@ -187,6 +90,11 @@
     document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
         document.getElementById('overlay').style.display = 'block';
+
+        var myAudio = document.getElementById('koAudio');
+        myAudio.muted = false; // Попытка включить звук
+        myAudio.play().catch(error => console.log("Error playing audio: ", error));
+
 
         setTimeout(function() {
             document.getElementById('overlay').style.display = 'none';
