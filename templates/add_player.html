@@ -1,16 +1,79 @@
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Добавить игрока</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #d40000; /* Красный фон */
+            color: #ffd700; /* Золотой текст */
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.5);
+            display: inline-block;
+            margin-right: 20px; /* Отступ от рекламного блока */
+        }
+
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="text"], input[type="number"], input[type="submit"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: #ff0000; /* Красная кнопка */
+            color: #ffffff;
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #cc0000;
+        }
+
+        /* Стили для рекламного блока */
+        #ad-block {
+            position: fixed;
+            right: 0;
+            top: 20%;
+            width: 200px; /* Ширина рекламного блока */
+            padding: 10px;
+            background-color: #fff; /* Фон рекламного блока */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.5);
+            color: #000; /* Цвет текста в рекламном блоке */
+        }
+    </style>
 </head>
 <body>
-    <h1>Добавить нового игрока</h1>
-    <form method="post">
-        <label for="name">Имя:</label>
-        <input type="text" name="name" id="name" required>
-        <label for="rating">Рейтинг:</label>
-        <input type="number" name="rating" id="rating" value="1000">
-        <input type="submit" value="Добавить">
-    </form>
+
+<div id="ad-block">
+    <p>Здесь могла быть ваша реклама</p>
+    <!-- Содержимое рекламного блока -->
+</div>
+
+<h1>Добавить нового игрока</h1>
+<form method="post">
+    <label for="name">Имя:</label>
+    <input type="text" name="name" id="name" required>
+    <label for="rating">Рейтинг:</label>
+    <input type="number" name="rating" id="rating" value="1000" readonly>
+    <input type="submit" value="Добавить">
+</form>
+
 </body>
 </html>

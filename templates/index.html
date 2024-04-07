@@ -1,37 +1,72 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
+    <audio id="myAudio">
+        <source src="static/national-anthem-of-the-peoples-republic-of-china.mp3" type="audio/mp3">
+    </audio>
     <meta charset="UTF-8">
     <title>乒乓球比赛</title>
     <style>
         body {
-            background-color: #00FF00;
-            color: #FF00FF;
+            background-color: #d40000; /* Красный фон */
+            color: #ffd700; /* Золотой текст */
             font-size: 24px;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            font-family: 'Times New Roman', serif; /* Более классический шрифт */
+            text-align: center;
         }
         img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 20px auto;
             width: 50%;
+        }
+        a {
+            color: #ffd700;
+        }
+        ul {
+            list-style-type: none; /* Убираем стандартные маркеры списка */
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .social-credit {
+            font-weight: bold;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <h1>粉碎或放弃。!</h1>
-    <div style="text-align: center; margin-top: 20px;">
-        <img src={{ gif_url }} alt="Ping Pong Gif" style="max-width: 100%; height: auto;">
+    <div id="ad-block" style="position: fixed; right: 0; top: 20%;">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7786973198084327"
+        crossorigin="anonymous"></script>
+    </div>
+    
+
+    <div class="overlay" id="overlay"></div>
+    <h1>粉碎或放弃!</h1>
+    <div>
+        <img src="{{ gif_url }}" alt="Ping Pong Gif">
     </div>
 
     <a href="{{ url_for('match') }}">添加比赛结果</a>
     <ul>
         {% for player in players %}
-            <li>{{ player.name }} - {{ player.rating }}</li>
+            <li>{{ player.name }} - <span class="social-credit">Social Credit: {{ player.rating | round }}</span></li>
         {% endfor %}
     </ul>
 
     <a href="{{ url_for('add_player') }}">添加新队友</a>
+    
+    <script>
+document.addEventListener("click", function() {
+    var myAudio = document.getElementById('myAudio');
+    myAudio.muted = false; // Попытка включить звук
+    myAudio.play().catch(error => console.log("Error playing audio: ", error));
+});
 
+    </script>
 </body>
 </html>
+

@@ -17,23 +17,11 @@ def get_db_connection():
 
 TENOR_API_KEY = 'AIzaSyAXnRcCb4d8m062Z38cj1aNVovjdgntGzY'
 
-def get_random_gif(keyword="pingpong"):
-    url = f"https://g.tenor.com/v1/search?q={keyword}&key={TENOR_API_KEY}&limit=1"
-    print(url)
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        gif_url = data['results'][0]['media'][0]['gif']['url']
-        return gif_url
-    else:
-        return None
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     conn = get_db_connection()
     players = conn.execute('SELECT * FROM players ORDER BY rating DESC').fetchall()
     conn.close()
-    print(get_random_gif())
     return render_template('index.html', gif_url="https://media1.tenor.com/m/zhY9_LLI0xYAAAAd/forrest-gump-ping-pong.gif", players=players)
 
 def calculate_new_ratings(winner_rating, loser_rating):
