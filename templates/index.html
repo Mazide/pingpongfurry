@@ -36,6 +36,33 @@
             font-weight: bold;
             font-style: italic;
         }
+        .match-history {
+        position: fixed; /* Фиксируем элемент на странице */
+        top: 0; /* Верхний край прижимаем к верху страницы */
+        right: 0; /* Правый край прижимаем к правому краю страницы */
+        width: 200px; /* Задаем ширину столбца */
+        height: 100%; /* Высота на всю высоту окна браузера */
+        overflow-y: auto; /* Добавляем прокрутку, если контент не помещается */
+        background-color: #ffd700; /* Золотой фон */
+        color: #d40000; /* Красный текст */
+        padding: 10px; /* Отступы внутри блока */
+        box-sizing: border-box; /* Чтобы ширина включала в себя отступы */
+        font-family: 'Times New Roman', serif; /* Более классический шрифт */
+        border-left: 5px solid #d40000; /* Красная линия слева от истории матчей */
+    }
+    .match-history h2 {
+        font-size: 18px; /* Размер шрифта для заголовка */
+        margin-top: 0; /* Убираем отступ сверху для заголовка */
+    }
+    .match-history ul {
+        padding: 0; /* Убираем отступы у списка */
+    }
+    .match-history li {
+        list-style-type: none; /* Убираем маркеры списка */
+        font-size: 14px; /* Размер шрифта для элементов списка */
+        margin-bottom: 5px; /* Небольшой отступ снизу для каждого элемента */
+    }
+
     </style>
 </head>
 <body>
@@ -58,6 +85,15 @@
         {% endfor %}
     </ul>
 
+    <div class="match-history">
+        <h2>История матчей</h2>
+        <ul>
+            {% for match_description in matches %}
+                <li>{{ match_description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
     <a href="{{ url_for('add_player') }}">添加新队友</a>
     
     <script>
@@ -76,7 +112,7 @@ window.addEventListener("scroll", function() {
 
 
     </script>
-        <img src="static/images/china_kgb.webp" style="position: fixed; right: 0; bottom: 0; width: 100px; height: 100px;">
+        <!-- <img src="static/images/china_kgb.webp" style="position: fixed; right: 0; bottom: 0; width: 100px; height: 100px;"> -->
 </body>
 </html>
 

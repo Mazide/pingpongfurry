@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 import requests
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -21,8 +22,34 @@ TENOR_API_KEY = 'AIzaSyAXnRcCb4d8m062Z38cj1aNVovjdgntGzY'
 def index():
     conn = get_db_connection()
     players = conn.execute('SELECT * FROM players ORDER BY rating DESC').fetchall()
+
+    players_dict = {player['id']: player['name'] for player in players}
+
+    # Получение списка всех матчей
+    matches = conn.execute('SELECT * FROM matches').fetchall()
+    print(matches)
+
+    # Формирование и вывод строк с описанием каждого матча
+    match_descriptions = []
+    for match in matches:
+        winner_name = players_dict.get(match['winner_id'])
+        loser_name = players_dict.get(match['loser_id'])
+    
+        
+        date = match['match_date']
+        if date is not None:
+            # Преобразование строки с датой в объект datetime
+            match_date_obj = datetime.strptime(match['match_date'], '%Y-%m-%d %H:%M:%S')
+        
+            # Форматирование даты в формат "2 апреля"
+            match_date_formatted = match_date_obj.strftime('%-d %B').replace('January', 'января').replace('February', 'февраля').replace('March', 'марта').replace('April', 'апреля').replace('May', 'мая').replace('June', 'июня').replace('July', 'июля').replace('August', 'августа').replace('September', 'сентября').replace('October', 'октября').replace('November', 'ноября').replace('December', 'декабря')
+            match_descriptions.append(winner_name + " " + "赢得" + " " + loser_name + " " + match_date_formatted)
+
+        else:
+            print("nodate")
+
     conn.close()
-    return render_template('index.html', gif_url="https://media1.tenor.com/m/zhY9_LLI0xYAAAAd/forrest-gump-ping-pong.gif", players=players)
+    return render_template('index.html', gif_url="https://media1.tenor.com/m/zhY9_LLI0xYAAAAd/forrest-gump-ping-pong.gif", players=players, matches=match_descriptions)
 
 def calculate_new_ratings(winner_rating, loser_rating):
     K = 32
@@ -54,8 +81,10 @@ def match():
         conn.execute('UPDATE players SET rating = ? WHERE id = ?', (new_winner_rating, winner_id))
         conn.execute('UPDATE players SET rating = ? WHERE id = ?', (new_loser_rating, loser_id))
         
-        # Добавляем запись о матче
-        conn.execute('INSERT INTO matches (winner_id, loser_id) VALUES (?, ?)', (winner_id, loser_id))
+        current_timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        conn.execute('INSERT INTO matches (winner_id, loser_id, match_date) VALUES (?, ?, ?)', 
+                    (winner_id, loser_id, current_timestamp))
         
         conn.commit()
         
@@ -77,6 +106,8 @@ def add_player():
             conn.close()
             return redirect(url_for('index'))
     return render_template('add_player.html')
+
+
 
 
 if __name__ == '__main__':
