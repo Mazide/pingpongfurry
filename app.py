@@ -8,15 +8,11 @@ from datetime import datetime
 app = Flask(__name__)
 
 DATABASE = 'ping_pong.db'
-TENOR_API_KEY = 'AIzaSyB_VYfk9Mn2odoFpbSIIjrOYSCMtZNO3yE'
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
-
-
-TENOR_API_KEY = 'AIzaSyAXnRcCb4d8m062Z38cj1aNVovjdgntGzY'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
